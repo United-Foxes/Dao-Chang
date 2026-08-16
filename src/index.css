@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --ink: #171614;
+    --gold: #BF953F;
+    --gold-soft: #C9A863;
+    --bg: #FAF8F4;
+    --gray-custom: #6E6962;
+  }
+
+  body {
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FAF8F4;
+    color: #171614;
+  }
+
+  h1, h2, h3, .font-display, .font-serif-artistic {
+    font-family: 'Gloock', Georgia, Cambria, 'Times New Roman', serif;
+    letter-spacing: -0.02em;
+  }
+
+  .font-accent {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-style: italic;
+  }
+}
+
+/* Artistic gold underline animation utility */
+.artistic-gold-line {
+  height: 1px;
+  background-color: #BF953F;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF8F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #E5DFC5;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C9A863;
+}
+

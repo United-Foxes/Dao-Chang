@@ -1,0 +1,6 @@
+{
+  "name": "Dao Chang Consciente",
+  "description": "Wiki de acompañamiento, glosario daoísta de Nei Gong y motor de captación para Fluir Consciente y Dao Chang Consciente.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
