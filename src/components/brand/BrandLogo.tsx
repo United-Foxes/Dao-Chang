@@ -1,4 +1,5 @@
 import React from 'react';
+import daoChangMasterIcon from '../../assets/brand/dao-chang-master-icon.png';
 
 interface BrandLogoProps {
   variant?: 'master' | 'fluir' | 'mente' | 'energia' | 'cuerpo' | 'relaciones';
@@ -38,44 +39,13 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       case 'master':
       default:
         return (
-          <svg
+          <img
+            src={daoChangMasterIcon}
             width={s}
             height={s}
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="shrink-0 transition-transform duration-300 hover:scale-105"
-            aria-label="Dao Chang Consciente Logo"
-          >
-            {/* Temple Roof Base */}
-            <path
-              d="M 50 8 L 86 28 C 76 26, 68 28, 62 33 L 38 33 C 32 28, 24 26, 14 28 Z"
-              fill={goldColor}
-            />
-            {/* Temple Eaves Arch */}
-            <path
-              d="M 20 28 C 30 25, 45 22, 50 22 C 55 22, 70 25, 80 28"
-              stroke={goldSoftColor}
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
-            {/* Master Heart formed by Two Interlaced Figures */}
-            {/* Masculine Silhouette (Left, Ink/Deep) */}
-            <path
-              d="M 48 38 C 36 34, 25 44, 27 58 C 29 70, 42 82, 50 90 C 49 84, 46 76, 44 68 C 42 60, 44 50, 48 38 Z"
-              fill={inkColor}
-            />
-            {/* Feminine Silhouette (Right, Gold/Gentle Flame) */}
-            <path
-              d="M 52 38 C 64 34, 75 44, 73 58 C 71 70, 58 82, 50 90 C 51 84, 54 76, 56 68 C 58 60, 56 50, 52 38 Z"
-              fill={goldColor}
-            />
-            {/* Central Pearl / Core Light */}
-            <circle cx="50" cy="54" r="3.5" fill="#FAF8F4" stroke={goldSoftColor} strokeWidth="1.5" />
-            {/* Base Pillar Lines */}
-            <line x1="22" y1="92" x2="78" y2="92" stroke={inkColor} strokeWidth="2.5" strokeLinecap="round" />
-            <line x1="30" y1="96" x2="70" y2="96" stroke={goldSoftColor} strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+            alt="Dao Chang Consciente"
+            className="shrink-0 transition-transform duration-300 hover:scale-105 object-contain"
+          />
         );
 
       case 'fluir':
