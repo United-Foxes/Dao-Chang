@@ -2,35 +2,103 @@
 
 @layer base {
   :root {
-    --ink: #171614;
-    --gold: #BF953F;
-    --gold-soft: #C9A863;
-    --bg: #FAF8F4;
-    --gray-custom: #6E6962;
+    --ink: #0A0A0A;
+    --gold: #D4AF37;
+    --gold-soft: #C7A95B;
+    --bg: #F7F5EF;
+    --paper: #FCFBF7;
+    --gray-custom: #706B63;
+    --line: rgba(10, 10, 10, 0.12);
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
     font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #FAF8F4;
-    color: #171614;
+    background-color: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, .font-display, .font-serif-artistic {
     font-family: 'Gloock', Georgia, Cambria, 'Times New Roman', serif;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 
   .font-accent {
     font-family: 'Crimson Pro', Georgia, serif;
     font-style: italic;
   }
+
+  ::selection {
+    background: rgba(212, 175, 55, 0.24);
+    color: var(--ink);
+  }
 }
 
-/* Artistic gold underline animation utility */
+/* Dao Chang: restrained editorial accents */
 .artistic-gold-line {
   height: 1px;
-  background-color: #BF953F;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--gold);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dao-section-line {
+  border-color: var(--line);
+}
+
+.dao-kicker {
+  font-size: 0.65rem;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  color: var(--gray-custom);
+}
+
+.dao-gold-kicker {
+  color: var(--gold);
+}
+
+.dao-editorial-link {
+  position: relative;
+  color: var(--ink);
+  transition: color 0.25s ease;
+}
+
+.dao-editorial-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.35rem;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.dao-editorial-link:hover {
+  color: var(--gold);
+}
+
+.dao-editorial-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Avoid excessive card-like UI: subtle, architectural surfaces */
+.dao-surface {
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.dao-rule {
+  height: 1px;
+  background: var(--line);
 }
 
 /* Custom subtle scrollbar */
@@ -39,13 +107,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F4;
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #E5DFC5;
+  background: #D9D2C2;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C9A863;
+  background: var(--gold-soft);
 }
-
