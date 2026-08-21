@@ -5,8 +5,8 @@ import { StickyChallengeBar } from './components/common/StickyChallengeBar';
 import { ExitIntentModal } from './components/common/ExitIntentModal';
 import { SearchModal } from './components/common/SearchModal';
 import { InteractiveQuizModal } from './components/views/InteractiveQuizModal';
+import { PremiumHero } from './components/views/PremiumHero';
 
-// Views
 import { HomeView } from './components/views/HomeView';
 import { StartHereView } from './components/views/StartHereView';
 import { GlossaryView } from './components/views/GlossaryView';
@@ -24,28 +24,17 @@ export default function App() {
   const [selectedPillarId, setSelectedPillarId] = useState<PillarId>('mente');
   const [selectedGlossarySlug, setSelectedGlossarySlug] = useState<string | null>(null);
   const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
-
-  // Modals
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isQuizOpen, setIsQuizOpen] = useState(false);
 
-  // Scroll to top on navigation
   const handleNavigate = (view: string, param?: string) => {
-    if (view === 'pillar' && param) {
-      setSelectedPillarId(param as PillarId);
-    }
-    if (view === 'glosario' && param) {
-      setSelectedGlossarySlug(param);
-    }
-    if (view === 'blog' && param) {
-      setSelectedBlogSlug(param);
-    }
-
+    if (view === 'pillar' && param) setSelectedPillarId(param as PillarId);
+    if (view === 'glosario' && param) setSelectedGlossarySlug(param);
+    if (view === 'blog' && param) setSelectedBlogSlug(param);
     setCurrentView(view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Keyboard shortcut Cmd+K or Ctrl+K for search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -59,7 +48,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF8F4] text-[#171614] selection:bg-[#BF953F]/30 selection:text-[#171614]">
-      {/* Search Modal */}
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
@@ -67,8 +55,6 @@ export default function App() {
         onSelectPillar={(pillarId) => handleNavigate('pillar', pillarId)}
         onSelectArticle={(slug) => handleNavigate('blog', slug)}
       />
-
-      {/* Diagnostic 5-Question Quiz Modal */}
       <InteractiveQuizModal
         isOpen={isQuizOpen}
         onClose={() => setIsQuizOpen(false)}
@@ -76,19 +62,12 @@ export default function App() {
         onNavigateToGlossaryTerm={(slug) => handleNavigate('glosario', slug)}
         onJoinChallenge={() => handleNavigate('reto-7-dias')}
       />
+      <ExitIntentModal onJoinChallenge={() => handleNavigate('reto-7-dias')} currentView={currentView} />
 
-      {/* Exit Intent Lead Capture Modal for Glossary & Blog */}
-      <ExitIntentModal
-        onJoinChallenge={() => handleNavigate('reto-7-dias')}
-        currentView={currentView}
-      />
-
-      {/* If inside dedicated Challenge Landing, show focused view with minimal distraction */}
       {currentView === 'reto-7-dias' ? (
         <ChallengeLandingView onBackToWiki={() => handleNavigate('home')} />
       ) : (
         <>
-          {/* Main Global Navigation */}
           <Navbar
             currentView={currentView}
             selectedPillar={selectedPillarId}
@@ -97,81 +76,30 @@ export default function App() {
             onOpenQuiz={() => setIsQuizOpen(true)}
           />
 
-          {/* Main Content Area */}
           <main className="flex-1">
             {currentView === 'home' && (
-              <HomeView
-                onNavigate={handleNavigate}
-                onOpenQuiz={() => setIsQuizOpen(true)}
-                onSelectTerm={(slug) => handleNavigate('glosario', slug)}
-              />
+              <>
+                <PremiumHero onNavigate={handleNavigate} />
+                <div className="[&>div>section:first-child]:hidden">
+                  <HomeView
+                    onNavigate={handleNavigate}
+                    onOpenQuiz={() => setIsQuizOpen(true)}
+                    onSelectTerm={(slug) => handleNavigate('glosario', slug)}
+                  />
+                </div>
+              </>
             )}
-
-            {currentView === 'empieza-aqui' && (
-              <StartHereView
-                onNavigate={handleNavigate}
-                onOpenQuiz={() => setIsQuizOpen(true)}
-              />
-            )}
-
-            {currentView === 'glosario' && (
-              <GlossaryView
-                selectedTermSlug={selectedGlossarySlug}
-                onSelectTerm={(slug) => setSelectedGlossarySlug(slug)}
-                onNavigateToPillar={(pId) => handleNavigate('pillar', pId)}
-                onJoinChallenge={() => handleNavigate('reto-7-dias')}
-              />
-            )}
-
-            {currentView === 'pillar' && (
-              <PillarView
-                pillarId={selectedPillarId}
-                onNavigateToPillar={(pId) => {
-                  setSelectedPillarId(pId);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                onNavigateToGlossaryTerm={(slug) => handleNavigate('glosario', slug)}
-                onJoinChallenge={() => handleNavigate('reto-7-dias')}
-              />
-            )}
-
-            {currentView === 'seguridad' && (
-              <SafetyView
-                onNavigate={handleNavigate}
-                onJoinChallenge={() => handleNavigate('reto-7-dias')}
-              />
-            )}
-
-            {currentView === 'blog' && (
-              <BlogView
-                selectedPostSlug={selectedBlogSlug}
-                onSelectPost={(slug) => setSelectedBlogSlug(slug)}
-                onSelectTerm={(slug) => handleNavigate('glosario', slug)}
-                onNavigateToPillar={(pId) => handleNavigate('pillar', pId)}
-                onJoinChallenge={() => handleNavigate('reto-7-dias')}
-              />
-            )}
-
-            {currentView === 'sobre' && (
-              <AboutView
-                onNavigate={handleNavigate}
-                onJoinChallenge={() => handleNavigate('reto-7-dias')}
-              />
-            )}
-
+            {currentView === 'empieza-aqui' && <StartHereView onNavigate={handleNavigate} onOpenQuiz={() => setIsQuizOpen(true)} />}
+            {currentView === 'glosario' && <GlossaryView selectedTermSlug={selectedGlossarySlug} onSelectTerm={(slug) => setSelectedGlossarySlug(slug)} onNavigateToPillar={(pId) => handleNavigate('pillar', pId)} onJoinChallenge={() => handleNavigate('reto-7-dias')} />}
+            {currentView === 'pillar' && <PillarView pillarId={selectedPillarId} onNavigateToPillar={(pId) => { setSelectedPillarId(pId); window.scrollTo({ top: 0, behavior: 'smooth' }); }} onNavigateToGlossaryTerm={(slug) => handleNavigate('glosario', slug)} onJoinChallenge={() => handleNavigate('reto-7-dias')} />}
+            {currentView === 'seguridad' && <SafetyView onNavigate={handleNavigate} onJoinChallenge={() => handleNavigate('reto-7-dias')} />}
+            {currentView === 'blog' && <BlogView selectedPostSlug={selectedBlogSlug} onSelectPost={(slug) => setSelectedBlogSlug(slug)} onSelectTerm={(slug) => handleNavigate('glosario', slug)} onNavigateToPillar={(pId) => handleNavigate('pillar', pId)} onJoinChallenge={() => handleNavigate('reto-7-dias')} />}
+            {currentView === 'sobre' && <AboutView onNavigate={handleNavigate} onJoinChallenge={() => handleNavigate('reto-7-dias')} />}
             {currentView === 'scaffolded-phases' && <ScaffoldedPhasesView />}
           </main>
 
-          {/* Global Authoritative Footer */}
-          <Footer
-            onNavigate={handleNavigate}
-            onOpenQuiz={() => setIsQuizOpen(true)}
-          />
-
-          {/* Persistent Lead Magnet Sticky Bar */}
-          <StickyChallengeBar
-            onJoinChallenge={() => handleNavigate('reto-7-dias')}
-          />
+          <Footer onNavigate={handleNavigate} onOpenQuiz={() => setIsQuizOpen(true)} />
+          <StickyChallengeBar onJoinChallenge={() => handleNavigate('reto-7-dias')} />
         </>
       )}
     </div>
