@@ -2,13 +2,14 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { PILLARS } from '../../data/pillarsData';
 import { BrandLogo } from '../brand/BrandLogo';
+import heroRiverArt from '../../assets/hero/dao-chang-hero-river.webp';
 
 interface PremiumHeroProps {
   onNavigate: (view: string, param?: string) => void;
 }
 
 const GOLD = '#C49A3A';
-const HERO_ART = 'https://raw.githubusercontent.com/United-Foxes/Dao-Chang/main/public/dao-chang-hero-premium.svg';
+const HERO_ART = heroRiverArt;
 
 export const PremiumHero: React.FC<PremiumHeroProps> = ({ onNavigate }) => (
   <section className="relative overflow-hidden border-b border-[#203D32]/10 bg-[#F7F4EC]">
