@@ -2,13 +2,16 @@
 
 @layer base {
   :root {
-    --ink: #0A0A0A;
-    --gold: #D4AF37;
-    --gold-soft: #C7A95B;
-    --bg: #F7F5EF;
-    --paper: #FCFBF7;
-    --gray-custom: #706B63;
-    --line: rgba(10, 10, 10, 0.12);
+    --ink: #171614;
+    --gold: #BF953F;
+    --gold-soft: #D8B968;
+    --green: #4F6B57;
+    --green-deep: #304A3A;
+    --green-soft: #E8EEE8;
+    --bg: #FAF8F4;
+    --paper: #FFFEFA;
+    --gray-custom: #6E6962;
+    --line: rgba(23, 22, 20, 0.12);
   }
 
   html {
@@ -34,7 +37,7 @@
   }
 
   ::selection {
-    background: rgba(212, 175, 55, 0.24);
+    background: rgba(191, 149, 63, 0.24);
     color: var(--ink);
   }
 }
@@ -83,7 +86,7 @@
 }
 
 .dao-editorial-link:hover {
-  color: var(--gold);
+  color: var(--green);
 }
 
 .dao-editorial-link:hover::after {
@@ -101,6 +104,68 @@
   background: var(--line);
 }
 
+/*
+ * FLUIR — natural language of the brand.
+ * The hero carries a deliberately quiet visual trace of water, wind and an
+ * otter in motion. It is an easter egg, not an illustration: the animal is
+ * suggested by the flowing body/tail contour rather than depicted literally.
+ */
+main > section:first-child::after {
+  content: '';
+  position: absolute;
+  right: clamp(2rem, 7vw, 7rem);
+  bottom: 7%;
+  width: min(30rem, 38vw);
+  aspect-ratio: 1.25;
+  pointer-events: none;
+  opacity: 0.18;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 420' fill='none'%3E%3Cpath d='M72 273c63-48 128-70 190-59 48 8 83 34 125 32 39-2 67-24 93-56' stroke='%234F6B57' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M58 300c80-24 143-25 205-8 62 17 117 18 188-17' stroke='%23BF953F' stroke-width='2' stroke-linecap='round' opacity='.65'/%3E%3Cpath d='M174 221c19-35 56-58 101-59 43-1 76 15 101 38-22 4-39 14-51 31-14 20-16 43-8 68-29 2-56-7-77-25-24-21-48-35-66-53Z' stroke='%234F6B57' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M367 200c31-17 58-18 79-9-12 13-18 29-19 47-1 15 3 30 11 43-27 4-52-4-70-22' stroke='%234F6B57' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='420' cy='204' r='3.5' fill='%23BF953F'/%3E%3Cpath d='M106 343c79-22 146-17 207 2 63 20 126 15 185-18' stroke='%234F6B57' stroke-width='2' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E");
+  transform: rotate(-4deg);
+  animation: dao-flow-drift 14s ease-in-out infinite alternate;
+}
+
+/* A second, almost invisible layer evokes wind crossing water. */
+main > section:first-child::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 55%;
+  height: 45%;
+  pointer-events: none;
+  opacity: 0.12;
+  background:
+    radial-gradient(ellipse at 70% 75%, transparent 0 33%, rgba(79, 107, 87, 0.28) 33.2% 33.45%, transparent 33.7% 100%),
+    radial-gradient(ellipse at 62% 88%, transparent 0 42%, rgba(191, 149, 63, 0.2) 42.2% 42.45%, transparent 42.7% 100%);
+}
+
+@keyframes dao-flow-drift {
+  from { transform: translate3d(0, 0, 0) rotate(-4deg); }
+  to { transform: translate3d(-10px, -6px, 0) rotate(-2deg); }
+}
+
+@media (max-width: 1023px) {
+  main > section:first-child::after {
+    right: 1rem;
+    bottom: 3rem;
+    width: min(24rem, 72vw);
+    opacity: 0.11;
+  }
+
+  main > section:first-child::before {
+    width: 80%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main > section:first-child::after {
+    animation: none;
+  }
+}
+
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -110,7 +175,7 @@
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #D9D2C2;
+  background: #C9D2C8;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
